@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import s from './phonebook.module.css';
+import s from './Phonebook.module.css';
 import { v4 as uuid } from 'uuid';
 
 // const Add = ({ changeMessage, label }) => (
@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 //   </button>
 // );
 
-class Phonebook extends Component {
+export class Phonebook extends Component {
   state = {
     contactsPhone: null,
     contactsOll: [],
@@ -18,16 +18,6 @@ class Phonebook extends Component {
     number: '',
   };
 
-  // updateMessage = evt => {
-  //   console.log(evt);
-
-  //   this.setState({
-  //     contacts: [],
-  //     filter: '',
-  //     name: '',
-  //     number: '',
-  //   });
-  // };
   hendleChange = e => {
     // console.log(e.target.name, e.target.value);
     this.setState({
@@ -47,10 +37,10 @@ class Phonebook extends Component {
     this.setState(prevState => {
       return { contactsOll: [...prevState.contactsOll, contactsObj] };
     });
-    this.reserForm();
+    this.resetForm();
   };
 
-  reserForm = () => {
+  resetForm = () => {
     this.setState({ name: ' ', number: ' ' });
   };
   contactIdName = uuid();
@@ -108,46 +98,9 @@ class Phonebook extends Component {
 
           <ul className="contacts__list"></ul>
         </div>
-        {/* <div className={styles.result}>
-          <span>No feedback given</span>
-          <span>Good: {this.state.good}</span>
-          <span>Neutral: {this.state.neutral}</span>
-          <span>Bad: {this.state.bad}</span>
-          <span>Total: {this.state.total}</span>
-          <span>Positive feedback:{this.state.PositiveFedback}</span>
-        </div> */}
       </>
     );
   }
 }
 
-export default Phonebook;
-
-// export default function Phonebook(props) {
-//   //  const { id, label, percentage } = props;
-
-//   return <h1 className={styles.title}>BBBBBBBBBBBBBBBB</h1>;
-// }
-
-/* {FriendList.title === true ? (
-    <h2 className="title">{FriendList.title}</h2>
-    ) : (
-      ' '
-      )} */
-
-// <div className="FriendList">
-//   <ul className="friend-list">
-//     {friends.map(el => (
-//       <li className="friend-item" key={el.id}>
-//         {el.isOnline === true ? (
-//           <span className="statusOn">&#x263A;</span>
-//         ) : (
-//           <span className="statusOf">&#x263A;</span>
-//         )}
-
-//         <img className="avatar" src={el.avatar} alt="avatar" width="48" />
-//         <p className="name">{el.name}</p>
-//       </li>
-//     ))}
-//   </ul>
-// </div>
+// export default Phonebook;
