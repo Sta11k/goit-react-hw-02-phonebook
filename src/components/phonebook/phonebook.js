@@ -11,8 +11,6 @@ import { v4 as uuid } from 'uuid';
 
 export class Phonebook extends Component {
   state = {
-    contactsPhone: null,
-    contactsOll: [],
     filter: '',
     name: '',
     number: '',
@@ -20,23 +18,21 @@ export class Phonebook extends Component {
 
   hendleChange = e => {
     // console.log(e.target.name, e.target.value);
+    const { name, value } = e.target;
     this.setState({
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   hendleSubmit = e => {
     e.preventDefault();
-    const contactsObj = {
-      name: this.state.name,
-      number: this.state.number,
+    const { name, number } = this.state;
+    const contactsPhone = {
+      name,
+      number,
     };
-    this.setState({
-      contactsPhone: contactsObj,
-    });
-    this.setState(prevState => {
-      return { contactsOll: [...prevState.contactsOll, contactsObj] };
-    });
+    this.setState({ contactsPhone });
+    this.props.addNewContact(contactsPhone);
     this.resetForm();
   };
 
@@ -48,18 +44,20 @@ export class Phonebook extends Component {
 
   render() {
     console.log(this.state.name, this.state.number);
+    const { name, number } = this.state;
+    const { hendleSubmit, hendleChange } = this;
     return (
       <>
-        <form onSubmit={this.hendleSubmit}>
+        <form onSubmit={hendleSubmit}>
           <h1>Phonebook</h1>
           <div className={s.addBlock}>
             <label htmlFor={this.contactIdName} className={s.name}>
               Name
               <input
                 id={this.contactIdName}
-                onChange={this.hendleChange}
+                onChange={hendleChange}
                 type="text"
-                value={this.state.name}
+                value={name}
                 name="name"
                 pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                 title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
@@ -70,9 +68,9 @@ export class Phonebook extends Component {
               Number
               <input
                 id={this.contactIdNumber}
-                onChange={this.hendleChange}
+                onChange={hendleChange}
                 type="tel"
-                value={this.state.number}
+                value={number}
                 name="number"
                 pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                 title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
