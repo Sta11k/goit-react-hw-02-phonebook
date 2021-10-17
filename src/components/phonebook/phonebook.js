@@ -11,6 +11,7 @@ import { v4 as uuid } from 'uuid';
 
 export class Phonebook extends Component {
   state = {
+    id: null,
     filter: '',
     name: '',
     number: '',
@@ -26,8 +27,9 @@ export class Phonebook extends Component {
 
   hendleSubmit = e => {
     e.preventDefault();
-    const { name, number } = this.state;
+    const { id, name, number } = this.state;
     const contactsPhone = {
+      id,
       name,
       number,
     };
@@ -39,6 +41,7 @@ export class Phonebook extends Component {
   resetForm = () => {
     this.setState({ name: ' ', number: ' ' });
   };
+  contactId = uuid();
   contactIdName = uuid();
   contactIdNumber = uuid();
 
